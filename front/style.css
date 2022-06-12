@@ -23,6 +23,7 @@
     font-size: 20px;
     text-align: center;
     margin-top: 10px;
+    
 }
 
 .container-table{
@@ -34,10 +35,24 @@
 }
 
 .row1{
-    background-color: rgb(236, 217, 233);
+    background-color: rgb(146, 226, 199);
     margin-top: 10px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(98, 185, 156);
 }
 .row2{
-    background-color: rgb(245, 169, 232);
+    background-color: rgb(199, 247, 231);
     margin-top: 10px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(98, 185, 156);
+}
+
+.tittleRow{
+    background-color: rgb(32, 204, 147);
+    margin-top: 10px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(18, 151, 107);
 }
