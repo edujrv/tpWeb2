@@ -9,5 +9,9 @@ import java.util.List;
 public interface PartidoRepository {
     List<Partido> getAll();
 
+    List<Partido> get(String fecha);
+
     void save(PartidoRequest partidoRequest);
+
+    void delete(String fecha);
 }

@@ -23,17 +23,21 @@
         </div>
       <form>
         <div class="row pad" id="perfil">
-          <div class="col-md-1"></div>
+          <!-- <div class="col-md-1"></div> -->
           <div class="col-md-2">
-            <label for="user" class="form-label">Fecha disputada</label>
+            <label for="user" class="form-label label">Fecha disputada</label>
           </div>
-          <div class="col-md-7">
+          <div class="col-md-6">
             <input
               type="text"
               class="form-control"
               id="fecha"
               placeholder="Ingresar fecha"
             />
+          </div>
+          <div class="col-md-2">
+            <input type="button" class="btn btn-info pad margen" onclick="editarFecha()" value="Editar Fecha">
+            <input type="button" class="btn btn-info pad margen" onclick="borrarFecha()" value="Borrar Fecha">
           </div>
         </div>
 
@@ -186,8 +190,10 @@
         <div class="row pad">
           <div class="col-md-2"></div>
           <div class="col-md-3" style="padding-bottom: 10px">
-            <input type="button" class="btn btn-success pad" onclick="enviar()" value="Registrar Fecha">
-            <input type="button" class="btn btn-info pad" onclick="actualizarScoreboard()" value="Actualizar Tabla">
+            <input type="button" class="btn btn-success pad" onclick="enviar()" value="Registrar Fecha" id="registrar">
+            <input type="button" class="btn btn-success pad" onclick="guardar()" value="Guardar" id="guardar" hidden>
+            <input type="button" class="btn btn-danger pad" onclick="cancelar()" value="Cancelar" id="cancelar" hidden>
+            <input type="button" class="btn btn-info pad margen" onclick="actualizarScoreboard()" value="Actualizar Tabla">
           </div>          
         </div>
       </form>

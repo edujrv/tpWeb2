@@ -3,6 +3,17 @@
     
 }
 
+.margen{
+    margin-left: 25px;
+}
+
+
+.label{
+    font-size: 20px;
+    margin-left: 140px;
+    /* background-color: blue; */
+}
+
 .container-login{
     background-color: rgb(245, 231, 177);
     border-width: 2px;

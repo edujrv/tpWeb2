@@ -6,8 +6,18 @@
         SELECT * FROM scoreboard;
     </select>
 
+    <select id="get" parameterType="String" resultType="Partido">
+        SELECT * FROM scoreboard
+        WHERE numero_fecha = #{fecha};
+    </select>
+
     <select id="save" parameterType="Partido">
         INSERT INTO scoreboard (numero_fecha, "local", goles_local, goles_visit, visitante)
         VALUES (#{fecha}, #{local},#{golesLocal},#{golesVisitante},#{visitante})
+    </select>
+
+    <select id="delete" parameterType="String">
+        DELETE FROM scoreboard
+        WHERE numero_fecha = #{fecha}
     </select>
 </mapper>

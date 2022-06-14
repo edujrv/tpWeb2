@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 
 @RestController
@@ -25,6 +26,21 @@ public class PartidoController {
 
         for (Partido partido:
              partidos) {
+            partidoResponses.add(PartidoResponse.build(partido));
+        }
+        return partidoResponses;
+    }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping("/get/{fecha}")
+    public List<PartidoResponse> get(
+            @PathVariable(name = "fecha") String fecha) {
+
+        List<Partido> partidos = partidoService.get(fecha);
+        List<PartidoResponse> partidoResponses = new ArrayList<>();
+
+        for (Partido partido:
+                partidos) {
             partidoResponses.add(PartidoResponse.build(partido));
         }
         return partidoResponses;
@@ -47,4 +63,13 @@ public class PartidoController {
             partidoService.save(partidoRequest);
         }
     }
+
+
+    @CrossOrigin(origins = "*")
+    @DeleteMapping("/delete/{fecha}")
+    public void delete(@PathVariable(name = "fecha") String fecha) {
+            partidoService.delete(fecha);
+    }
+
+
 }

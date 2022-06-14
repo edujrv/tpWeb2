@@ -21,7 +21,11 @@ public class PartidoService {
         return  partidoRepository.getAll();
     }
 
+    public List<Partido> get(String fecha){ return partidoRepository.get(fecha);}
+
     public void save(PartidoRequest partidoRequest){
         partidoRepository.save(partidoRequest);
     }
+
+    public void delete(String fecha) { partidoRepository.delete(fecha); }
 }

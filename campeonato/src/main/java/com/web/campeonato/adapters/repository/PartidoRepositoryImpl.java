@@ -23,7 +23,15 @@ public class PartidoRepositoryImpl implements PartidoRepository {
     }
 
     @Override
+    public List<Partido> get(String fecha){
+        return partidoRepositoryMyBatis.get(fecha);
+    }
+
+    @Override
     public void save(PartidoRequest partidoRequest) {
         partidoRepositoryMyBatis.save(partidoRequest);
     }
+
+    @Override
+    public void delete(String fecha) { partidoRepositoryMyBatis.delete(fecha);}
 }

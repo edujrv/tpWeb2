@@ -93,6 +93,52 @@ async function cargarFecha(fecha, locales, golesL, golesV, visitantes) {
     alert("Fecha cargada exitosamente!");
 }
 
+async function editarFecha() {
+    let fecha = document.getElementById("fecha");
+
+    const partidos = await fetch("http://127.0.0.1:8866/get/"+fecha.value)
+        .then(partidos => partidos.json())
+        .catch((e) => { });
+
+    console.log(partidos);
+
+
+    let locales = document.getElementsByName("local");
+    let golesLocales = document.getElementsByName("golesL");
+    let golesVisitantes = document.getElementsByName("golesV");
+    let visitantes = document.getElementsByName("visitante");
+    let fechaElement = document.getElementById("fecha");
+
+    let registrar = document.getElementById("registrar");
+    registrar.hidden = true;
+
+    let guardar = document.getElementById("guardar");
+    guardar.hidden = false;
+
+    let cancelar = document.getElementById("cancelar");
+    cancelar.hidden = false;
+   
+
+    for (let i = 0; i < 3; i++){
+        locales[i].value = partidos[i].local;
+        visitantes[i].value = partidos[i].visitante;
+        golesLocales[i].value = partidos[i].golesLocal;
+        golesVisitantes[i].value = partidos[i].golesVisitante;
+    }
+
+
+    // Borrar los datos para esa fecha 
+    
+
+    // Cargar los datos nuevos
+
+}
+
+function hola(){
+    alert(hola);
+}
+
+
 function duplicates(equipos) {
     let s = new Set(equipos);
     if (s.size == equipos.length) {
