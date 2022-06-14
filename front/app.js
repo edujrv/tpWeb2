@@ -128,11 +128,21 @@ async function editarFecha() {
 
 
     // Borrar los datos para esa fecha 
-    
+    borrarFecha();
+    console.log("datos borrados");
 
     // Cargar los datos nuevos
 
 }
+
+async function borrarFecha(){
+    let fecha = document.getElementById("fecha");
+
+    await fetch("http://127.0.0.1:8866/delete/"+fecha.value, {
+        method: 'DELETE' })
+    .catch((e) => { });
+}
+
 
 function hola(){
     alert(hola);
