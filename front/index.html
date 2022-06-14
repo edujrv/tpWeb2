@@ -62,7 +62,7 @@
           <div class="col-md-2"></div>
           <div class="col-md-3">
             <select class="form-select" aria-label="Default select example" name="local">
-              <option selected>Equipo Local</option>
+              <option value="Default" selected>Equipo Local</option>
               <option value="Boca">Boca</option>
               <option value="Belgrano">Belgrano</option>
               <option value="Sacachispas">Sacachispas</option>
@@ -89,7 +89,7 @@
           </div>
           <div class="col-md-3">
             <select class="form-select" aria-label="Default select example" name="visitante">
-              <option selected>Equipo Visitante</option>
+              <option value="Default" selected>Equipo Visitante</option>
               <option value="Boca">Boca</option>
               <option value="Belgrano">Belgrano</option>
               <option value="Sacachispas">Sacachispas</option>
@@ -105,7 +105,7 @@
           <div class="col-md-2"></div>
           <div class="col-md-3">
             <select class="form-select" aria-label="Default select example" name="local">
-              <option selected>Equipo Local</option>
+              <option value="Default" selected>Equipo Local</option>
               <option value="Boca">Boca</option>
               <option value="Belgrano">Belgrano</option>
               <option value="Sacachispas">Sacachispas</option>
@@ -132,7 +132,7 @@
           </div>
           <div class="col-md-3">
             <select class="form-select" aria-label="Default select example" name="visitante">
-              <option selected>Equipo Visitante</option>
+              <option value="Default" selected>Equipo Visitante</option>
               <option value="Boca">Boca</option>
               <option value="Belgrano">Belgrano</option>
               <option value="Sacachispas">Sacachispas</option>
@@ -148,7 +148,7 @@
           <div class="col-md-2"></div>
           <div class="col-md-3">
             <select class="form-select" aria-label="Default select example" name="local">
-              <option selected>Equipo Local</option>
+              <option value="Default" selected>Equipo Local</option>
               <option value="Boca">Boca</option>
               <option value="Belgrano">Belgrano</option>
               <option value="Sacachispas">Sacachispas</option>
@@ -175,7 +175,7 @@
           </div>
           <div class="col-md-3">
             <select class="form-select" aria-label="Default select example" name="visitante">
-              <option selected>Equipo Visitante</option>
+              <option value="Default" selected>Equipo Visitante</option>
               <option value="Boca">Boca</option>
               <option value="Belgrano">Belgrano</option>
               <option value="Sacachispas">Sacachispas</option>
@@ -191,9 +191,9 @@
           <div class="col-md-2"></div>
           <div class="col-md-3" style="padding-bottom: 10px">
             <input type="button" class="btn btn-success pad" onclick="enviar()" value="Registrar Fecha" id="registrar">
-            <input type="button" class="btn btn-success pad" onclick="enviar()" value="Guardar" id="guardar" hidden>
-            <input type="button" class="btn btn-danger pad" onclick="cancelar()" value="Cancelar" id="cancelar" hidden>
-            <input type="button" class="btn btn-info pad margen" onclick="actualizarScoreboard()" value="Actualizar Tabla">
+            <input type="button" class="btn btn-success pad" onclick="guardarCambios()" value="Guardar" id="guardar" hidden>
+            <input type="button" class="btn btn-danger pad" onclick="cancelarCambios()" value="Cancelar" id="cancelar" hidden>
+            <!-- <input type="button" class="btn btn-info pad margen" onclick="actualizarScoreboard()" value="Actualizar Tabla"> -->
           </div>          
         </div>
       </form>

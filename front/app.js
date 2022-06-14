@@ -21,6 +21,7 @@ const table_header = `<div class="row">
 
 function enviar() {
 
+    let valido = false;
 
     let localess = document.getElementsByName("local");
     let golesLocales = document.getElementsByName("golesL");
@@ -55,12 +56,32 @@ function enviar() {
     if (!camposVacios(localess, golesLocales, golesVisitantes, visitantess, fechaElement)) {
         if (!duplicates(equipos)) {
             cargarFecha(fecha, locales, golesL, golesV, visitantes);
+            valido = true;
         } else {
             alert("Se repiten equipos!");
+            valido = false;
         }
-    }else{
+    } else {
         alert("Hay campos incompletos o mal ingresados");
+        valido = false;
     }
+
+    return valido;
+
+}
+
+function cancelarCambios() {
+
+    reestablecerForm();
+
+    let registrar = document.getElementById("registrar");
+    registrar.hidden = false;
+
+    let guardar = document.getElementById("guardar");
+    guardar.hidden = true;
+
+    let cancelar = document.getElementById("cancelar");
+    cancelar.hidden = true;
 }
 
 async function cargarFecha(fecha, locales, golesL, golesV, visitantes) {
@@ -90,24 +111,23 @@ async function cargarFecha(fecha, locales, golesL, golesV, visitantes) {
         body: JSON.stringify(fechas),
     });
 
-    alert("Fecha cargada exitosamente!");
+    // alert("Fecha cargada exitosamente!");
+    actualizarScoreboard();
 }
 
 async function editarFecha() {
     let fecha = document.getElementById("fecha");
 
-    const partidos = await fetch("http://127.0.0.1:8866/get/"+fecha.value)
+    const partidos = await fetch("http://127.0.0.1:8866/get/" + fecha.value)
         .then(partidos => partidos.json())
         .catch((e) => { });
 
     console.log(partidos);
 
-
     let locales = document.getElementsByName("local");
     let golesLocales = document.getElementsByName("golesL");
     let golesVisitantes = document.getElementsByName("golesV");
     let visitantes = document.getElementsByName("visitante");
-    let fechaElement = document.getElementById("fecha");
 
     let registrar = document.getElementById("registrar");
     registrar.hidden = true;
@@ -117,37 +137,48 @@ async function editarFecha() {
 
     let cancelar = document.getElementById("cancelar");
     cancelar.hidden = false;
-   
 
-    for (let i = 0; i < 3; i++){
+
+    for (let i = 0; i < 3; i++) {
         locales[i].value = partidos[i].local;
         visitantes[i].value = partidos[i].visitante;
         golesLocales[i].value = partidos[i].golesLocal;
         golesVisitantes[i].value = partidos[i].golesVisitante;
     }
 
-
-    // Borrar los datos para esa fecha 
-    borrarFecha();
-    console.log("datos borrados");
-
-    // Cargar los datos nuevos
-
 }
 
-async function borrarFecha(){
+function guardarCambios() {
+
+    let valido = enviar();
+    // alert("VALIDO: " + valido);
+    if (valido){
+        borrarFecha();
+        enviar()
+
+    let registrar = document.getElementById("registrar");
+    registrar.hidden = false;
+
+    let guardar = document.getElementById("guardar");
+    guardar.hidden = true;
+
+    let cancelar = document.getElementById("cancelar");
+    cancelar.hidden = true;
+
+    }
+}
+
+async function borrarFecha() {
     let fecha = document.getElementById("fecha");
 
-    await fetch("http://127.0.0.1:8866/delete/"+fecha.value, {
-        method: 'DELETE' })
-    .catch((e) => { });
+    await fetch("http://127.0.0.1:8866/delete/" + fecha.value, {
+        method: 'DELETE'
+    })
+        .catch((e) => { });
+
+    // alert("Fecha eliminada!");
+    reestablecerForm();
 }
-
-
-function hola(){
-    alert(hola);
-}
-
 
 function duplicates(equipos) {
     let s = new Set(equipos);
@@ -163,16 +194,56 @@ function camposVacios(local, golesL, golesV, visitante, fecha) {
     //  si los equipos son validos
     // y si los goles son mayores que cero.
 
-    if (estaVacio(local) || /*equipoValido(local) || */
+    if (estaVacio(local) || 
         estaVacio(golesL) || validGoles(golesL) ||
         estaVacio(golesV) || validGoles(golesV) ||
-        estaVacio(visitante) /*|| equipoValido(visitante)*/||
+        estaVacio(visitante)||
         fechaNoNull(fecha)) {
         return true;
     } else {
         return false;
     }
 }
+
+function reestablecerForm() {
+
+    let local = document.getElementsByName("local");
+    let visitante = document.getElementsByName("visitante");
+    let golesLocales = document.getElementsByName("golesL");
+    let golesVisitantes = document.getElementsByName("golesV");
+    let fecha = document.getElementById("fecha");
+
+    reestablecerEquipos(local);
+    reestablecerGoles(golesLocales);
+    reestablecerGoles(golesVisitantes);
+    reestablecerEquipos(visitante);
+    reestablecerFecha(fecha);
+}
+
+function reestablecerEquipos(campoElement) {
+
+    campoElement.forEach(campo => {
+        campo.setAttribute("style", "");
+        campo.selectedIndex = 0;
+    })
+}
+
+function reestablecerGoles(campo) {
+
+    campo.forEach(element => {
+        element.setAttribute("style", "");
+        element.value = "";
+    });
+}
+
+
+function reestablecerFecha(fecha) {
+
+    fecha.setAttribute("style", "");
+    fecha.value = "";
+
+}
+
 
 function estaVacio(campo) {
     let valido = false;
@@ -188,7 +259,7 @@ function estaVacio(campo) {
     return valido;
 }
 
-function fechaNoNull(fecha){
+function fechaNoNull(fecha) {
     let valido = false;
     if (fecha.value == "") {
         fecha.setAttribute("style", "border-color:red; border-width:3px;");
@@ -200,16 +271,15 @@ function fechaNoNull(fecha){
 }
 
 function validGoles(campo) {
+    let valido = false;
 
     campo.forEach(element => {
         if (parseInt(element.value) < 0) {
             element.setAttribute("style", "border-color:red; border-width:3px;");
-            return false;
-        } else {
-            element.setAttribute("style", "border-color:green; border-width:3px;");
-            return true;
+            valido = true;
         }
     });
+    return valido;
 }
 
 function actualizarTabla(partidos) {
@@ -253,7 +323,6 @@ function ordenarTabla(equipos) {
     }
 
     var pivot = equipos[0];
-
     var left = [];
     var right = [];
 

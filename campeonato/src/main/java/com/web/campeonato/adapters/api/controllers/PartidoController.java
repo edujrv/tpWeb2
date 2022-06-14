@@ -45,13 +45,6 @@ public class PartidoController {
         }
         return partidoResponses;
     }
-    
-//    @PostMapping("/save")
-//    public void save(
-//            @RequestBody PartidoRequest partidoRequest
-//            ){
-//        partidoService.save(partidoRequest);
-//    }
 
     @CrossOrigin(origins = "*")
     @PostMapping("/save")
